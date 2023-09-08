@@ -24,6 +24,7 @@ use crate::{
 
 
 const DEFAULT_MAP_SIZE: usize = 32 * 1024;
+const DEFAULT_MAP_NAME: &str = "Local\\SCSTelemetry";
 
 
 pub struct SharedMemory {
@@ -38,7 +39,7 @@ impl SharedMemory {
       let h_map_file: HANDLE = OpenFileMappingW(
         FILE_MAP_READ.0,
         false,
-        &HSTRING::from("Local\\SCSTelemetry")
+        &HSTRING::from(DEFAULT_MAP_NAME)
       ).unwrap();
   
       let p_buf: MEMORY_MAPPED_VIEW_ADDRESS = MapViewOfFile(
@@ -54,7 +55,7 @@ impl SharedMemory {
       SharedMemory {
         file_mapping_handle: h_map_file,
         mapped_view_address: p_buf,
-        converter: SdkConverter::init(exposed_ptr)
+        converter: SdkConverter::new(exposed_ptr)
       }
     }
   }

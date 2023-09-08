@@ -34,7 +34,7 @@ pub struct SdkConverter {
 }
 
 impl SdkConverter {
-  pub fn init(data_pointer: *const c_void) -> Self {
+  pub fn new(data_pointer: *const c_void) -> Self {
     SdkConverter {
       data_pointer,
       offset: 0,
