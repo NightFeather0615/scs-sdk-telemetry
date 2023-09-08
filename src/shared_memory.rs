@@ -49,12 +49,12 @@ impl SharedMemory {
         DEFAULT_MAP_SIZE
       );
 
-      let expose_ptr: *const c_void = ptr::from_exposed_addr::<c_void>(p_buf.Value.expose_addr());
+      let exposed_ptr: *const c_void = ptr::from_exposed_addr::<c_void>(p_buf.Value.expose_addr());
 
       SharedMemory {
         file_mapping_handle: h_map_file,
         mapped_view_address: p_buf,
-        converter: SdkConverter::init(expose_ptr)
+        converter: SdkConverter::init(exposed_ptr)
       }
     }
   }
