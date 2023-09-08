@@ -374,7 +374,9 @@ impl SdkConverter {
     // 14th Zone
 
     telemetry_data.trailers = {
-      let mut temp_trailers: Vec<Trailer> = vec![Trailer::default(); 10];
+      let mut temp_trailers: Vec<Trailer> = vec![
+        Trailer::default(); telemetry_data.max_trailer_count as usize
+      ];
 
       temp_trailers.iter_mut().for_each(
         |t: &mut Trailer| {

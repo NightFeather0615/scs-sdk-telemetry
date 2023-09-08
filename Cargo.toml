@@ -2,6 +2,10 @@
 name = "scs-sdk-telemetry"
 version = "0.1.0"
 edition = "2021"
+authors = ["NightFeather"]
+license = "MPL-2.0"
+homepage = "https://github.com/NightFeather0615/scs-sdk-telemetry"
+repository = "https://github.com/NightFeather0615/scs-sdk-telemetry"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
