@@ -40,7 +40,9 @@ impl SharedMemory {
         FILE_MAP_READ.0,
         false,
         &HSTRING::from(DEFAULT_MAP_NAME)
-      ).unwrap();
+      ).expect(
+        "Can't read shared memory, make sure the SCSTelemetry SDK is installed and the game is running."
+      );
   
       let p_buf: MEMORY_MAPPED_VIEW_ADDRESS = MapViewOfFile(
         h_map_file,

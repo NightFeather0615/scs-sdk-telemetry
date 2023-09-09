@@ -1,3 +1,8 @@
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+#[cfg(feature = "json")]
+use serde_json::{Result, Value};
+
 use super::{
   version::Version,
   game::Game,
@@ -15,6 +20,8 @@ use super::{
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TelemetryData {
   pub sdk_active: bool,
   pub paused: bool,
@@ -51,5 +58,10 @@ impl TelemetryData {
   pub fn set_truck_position(self: &mut Self, position: Placement::<f64>) {
     self.truck.current.position = position;
     self.truck.positioning.truck_position = position;
+  }
+
+  #[cfg(feature = "json")]
+  pub fn to_json(self: &mut Self) -> Result<Value> {
+    serde_json::to_value(self)
   }
 }

@@ -1,7 +1,12 @@
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
 use super::shifter_type::ShifterType;
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct MotorConstants {
   pub forward_gear_count: u32,
   pub reverse_gear_count: u32,

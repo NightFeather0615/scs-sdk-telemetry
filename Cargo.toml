@@ -7,8 +7,25 @@ license = "MPL-2.0"
 homepage = "https://github.com/NightFeather0615/scs-sdk-telemetry"
 repository = "https://github.com/NightFeather0615/scs-sdk-telemetry"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[profile.release]
+strip = "symbols"
+lto = "fat"
+codegen-units = 1
+opt-level = "s"
+
+[features]
+default = []
+json = ["serde", "serde_json"]
 
 [dependencies.windows]
 version = "0.51.1"
 features = ["Win32_System_Memory", "Win32_Foundation"]
+
+[dependencies.serde]
+version = "1.0.188"
+features = ["derive"]
+optional = true
+
+[dependencies.serde_json]
+version = "1.0.105"
+optional = true

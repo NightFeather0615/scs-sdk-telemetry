@@ -1,7 +1,19 @@
-use super::{vector::Vector, placement::Placement, movement::Movement, aux_level::AuxLevel, wheels::WheelsConstants, motor::MotorConstants};
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
+use super::{
+  vector::Vector,
+  placement::Placement,
+  movement::Movement,
+  aux_level::AuxLevel,
+  wheels::WheelsConstants,
+  motor::MotorConstants
+};
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Truck {
   pub constants: Constants,
   pub current: Current,
@@ -9,6 +21,8 @@ pub struct Truck {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Constants {
   pub motor: MotorConstants,
   pub capacity: Capacity,
@@ -24,12 +38,16 @@ pub struct Constants {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Capacity {
   pub fuel: f32,
   pub ad_blue: f32
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct WarningFactor {
   pub fuel: f32,
   pub ad_blue: f32,
@@ -41,6 +59,8 @@ pub struct WarningFactor {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Current {
   pub electric_enabled: bool,
   pub engine_enabled: bool,
@@ -59,6 +79,8 @@ pub struct Current {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Position {
   pub cabin: Vector<f32>,
   pub head: Vector<f32>,
@@ -69,12 +91,16 @@ pub struct Position {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Motor {
   pub gear: Gear,
   pub brake: Brakes
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Gear {
   pub h_shifter_slot: u32,
   pub selected: i32,
@@ -82,6 +108,8 @@ pub struct Gear {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Brakes {
   pub retarder_level: u32,
   pub air_pressure: f32,
@@ -91,6 +119,8 @@ pub struct Brakes {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Dashboard {
   pub fuel: Fuel,
   pub warning: Warnings,
@@ -109,6 +139,8 @@ pub struct Dashboard {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Fuel {
   pub amount: f32,
   pub average_consumption: f32,
@@ -116,6 +148,8 @@ pub struct Fuel {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Warnings {
   pub air_pressure: bool,
   pub air_pressure_emergency: bool,
@@ -127,6 +161,8 @@ pub struct Warnings {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Lights {
   pub aux_front: AuxLevel,
   pub aux_roof: AuxLevel,
@@ -145,6 +181,8 @@ pub struct Lights {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TruckWheels {
   pub substance: Vec<u32>,
   pub suspension_deflection: Vec<f32>,
@@ -157,6 +195,8 @@ pub struct TruckWheels {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TruckDamage {
   pub engine: f32,
   pub transmission: f32,
@@ -166,6 +206,8 @@ pub struct TruckDamage {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TruckAcceleration {
   pub linear_acceleration: Vector<f32>,
   pub linear_velocity: Vector<f32>,

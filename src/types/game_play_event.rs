@@ -1,7 +1,12 @@
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
 use super::offence::Offence;
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct GamePlayEvents {
   pub ferry_event: Transport,
   pub fined_event: Fined,
@@ -13,6 +18,8 @@ pub struct GamePlayEvents {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Cancelled {
   pub penalty: i64,
   pub finished: u32,
@@ -20,6 +27,8 @@ pub struct Cancelled {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Delivered {
   pub auto_loaded: bool,
   pub auto_parked: bool,
@@ -39,17 +48,23 @@ impl Delivered {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Fined {
   pub amount: i64,
   pub offence: Offence 
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Tollgate {
   pub pay_amount: i64
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Transport {
   pub pay_amount: i64,
   pub source_id: String,
@@ -59,6 +74,8 @@ pub struct Transport {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Refuel {
   pub amount: f32
 }

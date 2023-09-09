@@ -1,7 +1,12 @@
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
 use super::vector::Vector;
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct WheelsConstants {
   pub count: u32,
   pub radius: Vec<f32>,

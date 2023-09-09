@@ -1,4 +1,10 @@
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
+
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Version {
   pub major: u32,
   pub minor: u32

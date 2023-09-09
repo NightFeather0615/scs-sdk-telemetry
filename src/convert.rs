@@ -45,7 +45,7 @@ impl SdkConverter {
   pub fn convert(self: &mut Self) -> TelemetryData {
     let mut telemetry_data: TelemetryData = TelemetryData::default();
 
-    self.offset = 0;
+    self.reset_offset();
 
 
     // 1st Zone
@@ -453,6 +453,11 @@ impl SdkConverter {
 
 
     telemetry_data
+  }
+
+  pub(self) fn reset_offset(self: &mut Self) {
+    self.offset = 0;
+    self.offset_area = 0;
   }
 
   pub(self) fn next_offset_area(self: &mut Self) {

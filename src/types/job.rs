@@ -1,7 +1,12 @@
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
 use super::job_market::JobMarket;
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Job {
   pub delivery_time: u32,
   pub remaining_delivery_time: i32,
@@ -22,6 +27,8 @@ pub struct Job {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Cargo {
   pub mass: f32,
   pub id: String,

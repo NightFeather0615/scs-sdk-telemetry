@@ -1,7 +1,16 @@
-use super::{wheels::WheelsConstants, vector::Vector, placement::Placement};
+#[cfg(feature = "json")]
+use serde::{Serialize, Deserialize};
+
+use super::{
+  wheels::WheelsConstants,
+  vector::Vector,
+  placement::Placement
+};
 
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Trailer {
   pub wheels_constant: WheelsConstants,
   pub wheels: TrailerWheels,
@@ -23,6 +32,8 @@ pub struct Trailer {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TrailerWheels {
   pub substance: Vec<u32>,
   pub suspension_deflection: Vec<f32>,
@@ -35,6 +46,8 @@ pub struct TrailerWheels {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TrailerDamage {
   pub body: f32,
   pub cargo: f32,
@@ -43,6 +56,8 @@ pub struct TrailerDamage {
 }
 
 #[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TrailerAcceleration {
   pub linear_acceleration: Vector<f32>,
   pub linear_velocity: Vector<f32>,
