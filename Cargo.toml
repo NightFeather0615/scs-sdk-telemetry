@@ -7,6 +7,9 @@ authors = ["NightFeather"]
 license = "MPL-2.0"
 homepage = "https://github.com/NightFeather0615/scs-sdk-telemetry"
 repository = "https://github.com/NightFeather0615/scs-sdk-telemetry"
+exclude = [
+  ".vscode"
+]
 
 [profile.release]
 strip = "symbols"
