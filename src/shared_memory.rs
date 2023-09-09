@@ -34,7 +34,7 @@ pub struct SharedMemory {
 }
 
 impl SharedMemory {
-  /// Open Windows's map file to read shared memory data.
+  /// Create a [SharedMemory] by open Windows's mapped file.
   pub fn connect() -> Self {
     unsafe {
       let h_map_file: HANDLE = OpenFileMappingW(

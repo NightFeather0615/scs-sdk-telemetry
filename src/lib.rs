@@ -3,4 +3,4 @@
 
 pub mod shared_memory;
 pub mod types;
-mod convert;
+pub mod convert;
