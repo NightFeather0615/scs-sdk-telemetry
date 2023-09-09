@@ -43,7 +43,7 @@ impl SdkConverter {
     }
   }
 
-  /// Convert raw byte data to [types::telemetry::TelemetryData].
+  /// Convert raw byte data to [TelemetryData].
   pub fn convert(self: &mut Self) -> TelemetryData {
     // Create empty struct
     let mut telemetry_data: TelemetryData = TelemetryData::default();
