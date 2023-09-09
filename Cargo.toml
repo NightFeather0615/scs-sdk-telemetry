@@ -1,7 +1,7 @@
 [package]
 name = "scs-sdk-telemetry"
 description = "Rust wrapper for the ETS2 (Euro Truck Simulator 2) and ATS (American Truck Simulator) Telemetry SDK plug-in."
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 authors = ["NightFeather"]
 license = "MPL-2.0"
