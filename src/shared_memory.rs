@@ -34,6 +34,7 @@ pub struct SharedMemory {
 }
 
 impl SharedMemory {
+  /// Open Windows's map file to read shared memory data.
   pub fn connect() -> Self {
     unsafe {
       let h_map_file: HANDLE = OpenFileMappingW(
@@ -62,10 +63,12 @@ impl SharedMemory {
     }
   }
 
+  /// Call [SdkConverter::convert] and return data.
   pub fn read(self: &mut Self) -> TelemetryData {
     self.converter.convert()
   }
 
+  /// Unmap file and close handle.
   pub fn dispose(self: &Self) {
     unsafe {
       UnmapViewOfFile(self.mapped_view_address).unwrap();

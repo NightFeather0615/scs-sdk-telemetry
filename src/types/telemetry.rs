@@ -60,6 +60,7 @@ impl TelemetryData {
     self.truck.positioning.truck_position = position;
   }
 
+  /// Serialize [types::TelemetryData] to [serde_json::Value].
   #[cfg(feature = "json")]
   pub fn to_json(self: &mut Self) -> Result<Value> {
     serde_json::to_value(self)

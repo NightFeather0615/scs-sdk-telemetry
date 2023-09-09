@@ -34,6 +34,7 @@ pub struct SdkConverter {
 }
 
 impl SdkConverter {
+  /// Create new converter with data pointer.
   pub fn new(data_pointer: *const c_void) -> Self {
     SdkConverter {
       data_pointer,
@@ -42,9 +43,12 @@ impl SdkConverter {
     }
   }
 
+  /// Convert raw byte data to [types::TelemetryData].
   pub fn convert(self: &mut Self) -> TelemetryData {
+    // Create empty struct
     let mut telemetry_data: TelemetryData = TelemetryData::default();
 
+    // Reset pointer offset
     self.reset_offset();
 
 
@@ -455,20 +459,24 @@ impl SdkConverter {
     telemetry_data
   }
 
+  /// Reset pointer offset.
   pub(self) fn reset_offset(self: &mut Self) {
     self.offset = 0;
     self.offset_area = 0;
   }
 
+  /// Set pointer offset to next offset area.
   pub(self) fn next_offset_area(self: &mut Self) {
     self.offset_area += 1;
     self.offset = OFFSET_AREAS[self.offset_area];
   }
 
+  /// Add offset to pointer.
   pub(self) fn pad_offset(self: &mut Self, value: isize) {
     self.offset += value;
   }
 
+  /// Read data from pointer by type.
   pub(self) fn get_value<T>(self: &mut Self) -> T {
     unsafe {
       let res: T = (self.data_pointer as *const T).byte_offset(self.offset).read_volatile();
@@ -477,6 +485,7 @@ impl SdkConverter {
     }
   }
 
+  /// Read vec of data from pointer by type.
   pub(self) fn get_value_vec<T>(self: &mut Self, length: usize) -> Vec<T> {
     let mut res: Vec<T> = Vec::with_capacity(length);
     (0..length).for_each(
@@ -487,6 +496,7 @@ impl SdkConverter {
     res
   }
 
+  /// Read data from pointer and convert to [types::Vector].
   pub(self) fn get_vector<T>(self: &mut Self) -> Vector<T> {
     Vector::<T> {
       x: self.get_value(),
@@ -495,6 +505,7 @@ impl SdkConverter {
     }
   }
 
+  /// Read data from pointer and convert to [types::Eular].
   pub(self) fn get_eular<T>(self: &mut Self) -> Eular<T> {
     Eular {
       heading: self.get_value(),
@@ -503,6 +514,7 @@ impl SdkConverter {
     }
   }
 
+  /// Read data from pointer and convert to [types::Placement].
   pub(self) fn get_placement<T>(self: &mut Self) -> Placement<T> {
     Placement::<T> {
       position: self.get_vector(),
@@ -510,6 +522,7 @@ impl SdkConverter {
     }
   }
 
+  /// Read data from pointer and decode with UTF-8.
   pub(self) fn get_string(self: &mut Self, length: Option<usize>) -> String {
     unsafe {
       let res: String = str::from_utf8(
