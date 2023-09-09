@@ -12,7 +12,7 @@ use super::{
   game_play_event::GamePlayEvents,
   control::Control,
   navigation::Navigation,
-  placement::Placement,
+  placement::Placement64,
   special_events::SpecialEvents,
   substance::Substance,
   trailer::Trailer
@@ -57,7 +57,7 @@ impl TelemetryData {
   }
 
   /// Set `truck.current.position` and `truck.positioning.truck_position`.
-  pub fn set_truck_position(self: &mut Self, position: Placement::<f64>) {
+  pub fn set_truck_position(self: &mut Self, position: Placement64) {
     self.truck.current.position = position;
     self.truck.positioning.truck_position = position;
   }

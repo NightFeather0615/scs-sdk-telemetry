@@ -1,7 +1,7 @@
 #[cfg(feature = "json")]
 use serde::{Serialize, Deserialize};
 
-use super::vector::Vector;
+use super::vector::Vector32;
 
 
 #[derive(Debug, Clone, Default)]
@@ -14,5 +14,5 @@ pub struct WheelsConstants {
   pub powered: Vec<bool>,
   pub liftable: Vec<bool>,
   pub steerable: Vec<bool>,
-  pub position: Vec<Vector<f32>>,
+  pub position: Vec<Vector32>,
 }

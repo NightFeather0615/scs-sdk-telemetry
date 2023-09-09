@@ -9,9 +9,9 @@ use crate::types::{
   telemetry::TelemetryData,
   game::Game,
   aux_level::AuxLevel,
-  vector::Vector,
-  placement::Placement,
-  eular::Eular,
+  vector::{Vector32, Vector64},
+  placement::{Placement32, Placement64},
+  eular::{Eular32, Eular64},
   shifter_type::ShifterType,
   job_market::JobMarket,
   offence::Offence,
@@ -245,39 +245,39 @@ impl SdkConverter {
 
     // 6th Zone
 
-    telemetry_data.truck.positioning.cabin = self.get_vector();
-    telemetry_data.truck.positioning.head = self.get_vector();
-    telemetry_data.truck.positioning.hook = self.get_vector();
+    telemetry_data.truck.positioning.cabin = self.get_vector32();
+    telemetry_data.truck.positioning.head = self.get_vector32();
+    telemetry_data.truck.positioning.hook = self.get_vector32();
     telemetry_data.truck.constants.wheels.position = {
-      let mut temp_pos: Vec<Vector<f32>> = vec![Vector::default(); WHEEL_SIZE];
+      let mut temp_pos: Vec<Vector32> = vec![Vector32::default(); WHEEL_SIZE];
 
-      temp_pos.iter_mut().for_each(|p: &mut Vector<f32>| p.x = self.get_value());
-      temp_pos.iter_mut().for_each(|p: &mut Vector<f32>| p.y = self.get_value());
-      temp_pos.iter_mut().for_each(|p: &mut Vector<f32>| p.z = self.get_value());
+      temp_pos.iter_mut().for_each(|p: &mut Vector32| p.x = self.get_value());
+      temp_pos.iter_mut().for_each(|p: &mut Vector32| p.y = self.get_value());
+      temp_pos.iter_mut().for_each(|p: &mut Vector32| p.z = self.get_value());
 
       temp_pos
     };
-    telemetry_data.truck.current.acceleration.linear_velocity = self.get_vector();
-    telemetry_data.truck.current.acceleration.angular_velocity = self.get_vector();
-    telemetry_data.truck.current.acceleration.linear_acceleration = self.get_vector();
-    telemetry_data.truck.current.acceleration.angular_acceleration = self.get_vector();
-    telemetry_data.truck.current.acceleration.cabin_angular_velocity = self.get_vector();
-    telemetry_data.truck.current.acceleration.cabin_angular_acceleration = self.get_vector();
+    telemetry_data.truck.current.acceleration.linear_velocity = self.get_vector32();
+    telemetry_data.truck.current.acceleration.angular_velocity = self.get_vector32();
+    telemetry_data.truck.current.acceleration.linear_acceleration = self.get_vector32();
+    telemetry_data.truck.current.acceleration.angular_acceleration = self.get_vector32();
+    telemetry_data.truck.current.acceleration.cabin_angular_velocity = self.get_vector32();
+    telemetry_data.truck.current.acceleration.cabin_angular_acceleration = self.get_vector32();
 
     self.next_offset_area();
 
 
     // 7th Zone
 
-    telemetry_data.truck.positioning.cabin_offset = self.get_placement();
-    telemetry_data.truck.positioning.head_offset = self.get_placement();
+    telemetry_data.truck.positioning.cabin_offset = self.get_placement32();
+    telemetry_data.truck.positioning.head_offset = self.get_placement32();
 
     self.next_offset_area();
 
 
     // 8th Zone
 
-    telemetry_data.set_truck_position(self.get_placement());
+    telemetry_data.set_truck_position(self.get_placement64());
 
     self.next_offset_area();
 
@@ -409,26 +409,26 @@ impl SdkConverter {
           t.wheels.lift_offset = self.get_value_vec(WHEEL_SIZE);
           t.wheels_constant.radius = self.get_value_vec(WHEEL_SIZE);
 
-          t.acceleration.linear_velocity = self.get_vector();
-          t.acceleration.angular_velocity = self.get_vector();
-          t.acceleration.linear_acceleration = self.get_vector();
-          t.acceleration.angular_acceleration = self.get_vector();
+          t.acceleration.linear_velocity = self.get_vector32();
+          t.acceleration.angular_velocity = self.get_vector32();
+          t.acceleration.linear_acceleration = self.get_vector32();
+          t.acceleration.angular_acceleration = self.get_vector32();
 
-          t.hook = self.get_vector();
+          t.hook = self.get_vector32();
 
           t.wheels_constant.position = {
-            let mut temp_pos: Vec<Vector<f32>> = vec![Vector::default(); WHEEL_SIZE];
+            let mut temp_pos: Vec<Vector32> = vec![Vector32::default(); WHEEL_SIZE];
 
-            temp_pos.iter_mut().for_each(|p: &mut Vector<f32>| p.x = self.get_value());
-            temp_pos.iter_mut().for_each(|p: &mut Vector<f32>| p.y = self.get_value());
-            temp_pos.iter_mut().for_each(|p: &mut Vector<f32>| p.z = self.get_value());
+            temp_pos.iter_mut().for_each(|p: &mut Vector32| p.x = self.get_value());
+            temp_pos.iter_mut().for_each(|p: &mut Vector32| p.y = self.get_value());
+            temp_pos.iter_mut().for_each(|p: &mut Vector32| p.z = self.get_value());
 
             temp_pos
           };
 
           self.pad_offset(4);
 
-          t.position = self.get_placement();
+          t.position = self.get_placement64();
 
           t.id = self.get_string(None);
           t.cargo_accessory_id = self.get_string(None);
@@ -496,29 +496,55 @@ impl SdkConverter {
     res
   }
 
-  /// Read data from pointer and convert to [types::Vector].
-  pub(self) fn get_vector<T>(self: &mut Self) -> Vector<T> {
-    Vector::<T> {
+  /// Read data from pointer and convert to [Vector32].
+  pub(self) fn get_vector32(self: &mut Self) -> Vector32 {
+    Vector32 {
       x: self.get_value(),
       y: self.get_value(),
       z: self.get_value()
     }
   }
 
-  /// Read data from pointer and convert to [types::Eular].
-  pub(self) fn get_eular<T>(self: &mut Self) -> Eular<T> {
-    Eular {
+  /// Read data from pointer and convert to [Vector64].
+  pub(self) fn get_vector64(self: &mut Self) -> Vector64 {
+    Vector64 {
+      x: self.get_value(),
+      y: self.get_value(),
+      z: self.get_value()
+    }
+  }
+
+  /// Read data from pointer and convert to [Eular32].
+  pub(self) fn get_eular32(self: &mut Self) -> Eular32 {
+    Eular32 {
       heading: self.get_value(),
       pitch: self.get_value(),
       roll: self.get_value()
     }
   }
 
-  /// Read data from pointer and convert to [types::Placement].
-  pub(self) fn get_placement<T>(self: &mut Self) -> Placement<T> {
-    Placement::<T> {
-      position: self.get_vector(),
-      orientation: self.get_eular()
+  /// Read data from pointer and convert to [Eular64].
+  pub(self) fn get_eular64(self: &mut Self) -> Eular64 {
+    Eular64 {
+      heading: self.get_value(),
+      pitch: self.get_value(),
+      roll: self.get_value()
+    }
+  }
+
+  /// Read data from pointer and convert to [Placement32].
+  pub(self) fn get_placement32(self: &mut Self) -> Placement32 {
+    Placement32 {
+      position: self.get_vector32(),
+      orientation: self.get_eular32()
+    }
+  }
+
+  /// Read data from pointer and convert to [Placement64].
+  pub(self) fn get_placement64(self: &mut Self) -> Placement64 {
+    Placement64 {
+      position: self.get_vector64(),
+      orientation: self.get_eular64()
     }
   }
 

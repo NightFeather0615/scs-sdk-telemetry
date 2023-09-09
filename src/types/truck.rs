@@ -2,8 +2,8 @@
 use serde::{Serialize, Deserialize};
 
 use super::{
-  vector::Vector,
-  placement::Placement,
+  vector::Vector32,
+  placement::{Placement32, Placement64},
   movement::Movement,
   aux_level::AuxLevel,
   wheels::WheelsConstants,
@@ -75,19 +75,19 @@ pub struct Current {
   pub wheels: TruckWheels,
   pub damage: TruckDamage,
   pub acceleration: TruckAcceleration,
-  pub position: Placement<f64>
+  pub position: Placement64
 }
 
 #[derive(Debug, Clone, Default)]
 #[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Position {
-  pub cabin: Vector<f32>,
-  pub head: Vector<f32>,
-  pub hook: Vector<f32>,
-  pub cabin_offset: Placement<f32>,
-  pub head_offset: Placement<f32>,
-  pub truck_position: Placement<f64>,
+  pub cabin: Vector32,
+  pub head: Vector32,
+  pub hook: Vector32,
+  pub cabin_offset: Placement32,
+  pub head_offset: Placement32,
+  pub truck_position: Placement64,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -209,10 +209,10 @@ pub struct TruckDamage {
 #[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TruckAcceleration {
-  pub linear_acceleration: Vector<f32>,
-  pub linear_velocity: Vector<f32>,
-  pub angular_acceleration: Vector<f32>,
-  pub angular_velocity: Vector<f32>,
-  pub cabin_angular_acceleration: Vector<f32>,
-  pub cabin_angular_velocity: Vector<f32>,
+  pub linear_acceleration: Vector32,
+  pub linear_velocity: Vector32,
+  pub angular_acceleration: Vector32,
+  pub angular_velocity: Vector32,
+  pub cabin_angular_acceleration: Vector32,
+  pub cabin_angular_velocity: Vector32,
 }

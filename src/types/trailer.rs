@@ -3,8 +3,8 @@ use serde::{Serialize, Deserialize};
 
 use super::{
   wheels::WheelsConstants,
-  vector::Vector,
-  placement::Placement
+  vector::Vector32,
+  placement::Placement64
 };
 
 
@@ -16,7 +16,7 @@ pub struct Trailer {
   pub wheels: TrailerWheels,
   pub damage: TrailerDamage,
   pub acceleration: TrailerAcceleration,
-  pub hook: Vector<f32>,
+  pub hook: Vector32,
   pub attached: bool,
   pub body_type: String,
   pub brand: String,
@@ -28,7 +28,7 @@ pub struct Trailer {
   pub license_plate_country: String,
   pub license_plate_country_id: String,
   pub name: String,
-  pub position: Placement<f64>
+  pub position: Placement64
 }
 
 #[derive(Debug, Clone, Default)]
@@ -59,8 +59,8 @@ pub struct TrailerDamage {
 #[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct TrailerAcceleration {
-  pub linear_acceleration: Vector<f32>,
-  pub linear_velocity: Vector<f32>,
-  pub angular_acceleration: Vector<f32>,
-  pub angular_velocity: Vector<f32>,
+  pub linear_acceleration: Vector32,
+  pub linear_velocity: Vector32,
+  pub angular_acceleration: Vector32,
+  pub angular_velocity: Vector32,
 }
