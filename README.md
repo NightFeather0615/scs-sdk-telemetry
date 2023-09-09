@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/crates/v/scs-sdk-telemetry.svg)](https://crates.io/crates/scs-sdk-telemetry) [![Docs](https://docs.rs/scs-sdk-telemetry/badge.svg)](https://docs.rs/scs-sdk-telemetry)
 
-This library read the telemetry data of Euro Truck Simulator 2 and American Truck Simulator and parse data into Rust struct.
+This library reads telemetry data from Euro Truck Simulator 2 and American Truck Simulator and parse data into Rust struct.
 
 Based on [RenCloud/scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)
 
