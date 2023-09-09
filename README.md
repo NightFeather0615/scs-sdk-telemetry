@@ -13,6 +13,7 @@ Follow the installation section in [RenCloud/scs-sdk-plugin](https://github.com/
 Read data:
 ```rust
 // main.rs
+
 use scs_sdk_telemetry::shared_memory::SharedMemory;
 
 fn main() {
@@ -27,15 +28,13 @@ fn main() {
 With [serde-rs/json](https://github.com/serde-rs/json):
 ```toml
 # Cargo.toml
-...
 
 [dependencies.scs_sdk_telemetry]
 features = ["json"]
-
-...
 ```
 ```rust
 // main.rs
+
 use scs_sdk_telemetry::shared_memory::SharedMemory;
 
 fn main() {
