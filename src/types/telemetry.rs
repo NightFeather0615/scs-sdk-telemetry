@@ -46,6 +46,7 @@ pub struct TelemetryData {
 }
 
 impl TelemetryData {
+  /// Set `job.delivery_time` and `job.remaining_delivery_time`.
   pub fn set_delivery_time(self: &mut Self, delivery_time: u32) {
     self.job.delivery_time = delivery_time;
     if self.common.game_time > 0 && self.common.game_time < 4000000000 && delivery_time > 0 {
@@ -55,6 +56,7 @@ impl TelemetryData {
     }
   }
 
+  /// Set `truck.current.position` and `truck.positioning.truck_position`.
   pub fn set_truck_position(self: &mut Self, position: Placement::<f64>) {
     self.truck.current.position = position;
     self.truck.positioning.truck_position = position;
