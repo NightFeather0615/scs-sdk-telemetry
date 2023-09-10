@@ -4,18 +4,22 @@ use serde::{Serialize, Deserialize};
 use serde_json::{Result, Value};
 
 use super::{
-  version::Version,
-  game::Game,
-  common::Common,
+  enums::Game,
   truck::Truck,
-  job::Job,
-  game_play_event::GamePlayEvents,
+  game_play_event::{
+    GamePlayEvents,
+    SpecialEvents
+  },
   control::Control,
-  navigation::Navigation,
-  placement::Placement64,
-  special_events::SpecialEvents,
-  substance::Substance,
-  trailer::Trailer
+  trailer::Trailer,
+  unit::{
+    Version,
+    Common,
+    Job,
+    Navigation,
+    Substance,
+    Placement64
+  }
 };
 
 

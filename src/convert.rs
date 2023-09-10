@@ -7,15 +7,25 @@ use std::{
 
 use crate::types::{
   telemetry::TelemetryData,
-  game::Game,
-  aux_level::AuxLevel,
-  vector::{Vector32, Vector64},
-  placement::{Placement32, Placement64},
-  eular::{Eular32, Eular64},
-  shifter_type::ShifterType,
-  job_market::JobMarket,
-  offence::Offence,
-  substance::Substance, trailer::Trailer
+  math::{
+    Vector32,
+    Vector64,
+    Eular32,
+    Eular64
+  },
+  trailer::Trailer,
+  enums::{
+    Game,
+    AuxLevel,
+    ShifterType,
+    JobMarket,
+    Offence
+  },
+  unit::{
+    Placement32,
+    Placement64,
+    Substance
+  }
 };
 
 
@@ -478,11 +488,11 @@ impl SdkConverter {
 
   /// Read data from pointer by type.
   pub(self) fn get_value<T>(self: &mut Self) -> T {
-    unsafe {
-      let res: T = (self.data_pointer as *const T).byte_offset(self.offset).read_volatile();
-      self.pad_offset(size_of::<T>() as isize);
-      res
-    }
+    let res: T = unsafe {
+      (self.data_pointer as *const T).byte_offset(self.offset).read_volatile()
+    };
+    self.pad_offset(size_of::<T>() as isize);
+    res
   }
 
   /// Read vec of data from pointer by type.
@@ -550,15 +560,15 @@ impl SdkConverter {
 
   /// Read data from pointer and decode with UTF-8.
   pub(self) fn get_string(self: &mut Self, length: Option<usize>) -> String {
-    unsafe {
-      let res: String = str::from_utf8(
+    let res: String = unsafe {
+      str::from_utf8(
         slice::from_raw_parts(
           (self.data_pointer as *const u8).byte_offset(self.offset),
           length.unwrap_or(STRING_SIZE)
         )
-      ).unwrap_or_default().trim().replace("\0", "");
-      self.pad_offset(length.unwrap_or(STRING_SIZE) as isize);
-      res
-    }
+      ).unwrap_or_default().trim().replace("\0", "")
+    };
+    self.pad_offset(length.unwrap_or(STRING_SIZE) as isize);
+    res
   }
 }

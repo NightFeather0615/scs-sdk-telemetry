@@ -36,30 +36,32 @@ pub struct SharedMemory {
 impl SharedMemory {
   /// Create a [SharedMemory] by open Windows's mapped file.
   pub fn connect() -> Self {
-    unsafe {
-      let h_map_file: HANDLE = OpenFileMappingW(
+    let h_map_file: HANDLE = unsafe {
+      OpenFileMappingW(
         FILE_MAP_READ.0,
         false,
         &HSTRING::from(DEFAULT_MAP_NAME)
       ).expect(
         "Can't read shared memory, make sure the SCSTelemetry SDK is installed and the game is running."
-      );
-  
-      let p_buf: MEMORY_MAPPED_VIEW_ADDRESS = MapViewOfFile(
+      )
+    };
+
+    let p_buf: MEMORY_MAPPED_VIEW_ADDRESS = unsafe {
+      MapViewOfFile(
         h_map_file,
         FILE_MAP_READ,
         0,
         0,
         DEFAULT_MAP_SIZE
-      );
+      )
+    };
 
-      let exposed_ptr: *const c_void = ptr::from_exposed_addr::<c_void>(p_buf.Value.expose_addr());
+    let exposed_ptr: *const c_void = ptr::from_exposed_addr::<c_void>(p_buf.Value.expose_addr());
 
-      SharedMemory {
-        file_mapping_handle: h_map_file,
-        mapped_view_address: p_buf,
-        converter: SdkConverter::new(exposed_ptr)
-      }
+    SharedMemory {
+      file_mapping_handle: h_map_file,
+      mapped_view_address: p_buf,
+      converter: SdkConverter::new(exposed_ptr)
     }
   }
 

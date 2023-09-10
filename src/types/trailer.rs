@@ -2,9 +2,11 @@
 use serde::{Serialize, Deserialize};
 
 use super::{
-  wheels::WheelsConstants,
-  vector::Vector32,
-  placement::Placement64
+  math::Vector32,
+  unit::{
+    WheelsConstants,
+    Placement64
+  },
 };
 
 
