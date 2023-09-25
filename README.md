@@ -20,8 +20,6 @@ fn main() {
   let mut shared_mem: SharedMemory = SharedMemory::connect();
 
   println!("{:#?}", shared_mem.read());
-
-  shared_mem.dispose();
 }
 ```
 
@@ -41,8 +39,6 @@ fn main() {
   let mut shared_mem: SharedMemory = SharedMemory::connect();
 
   println!("{:#?}", shared_mem.read().to_json().unwrap().to_string());
-
-  shared_mem.dispose();
 }
 ```
 See the [docs](https://docs.rs/scs-sdk-telemetry) for all the details.
