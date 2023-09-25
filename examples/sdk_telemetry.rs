@@ -7,6 +7,4 @@ fn main() {
   
   #[cfg(feature = "json")]
   println!("{:#?}", shared_mem.read().to_json().unwrap().to_string());
-
-  shared_mem.dispose();
 }

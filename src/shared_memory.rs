@@ -33,6 +33,12 @@ pub struct SharedMemory {
   converter: SdkConverter
 }
 
+impl Drop for SharedMemory {
+  fn drop(&mut self) {
+    self.dispose()
+  }
+}
+
 impl SharedMemory {
   /// Create a [SharedMemory] by open Windows's mapped file.
   pub fn connect() -> Self {
@@ -71,7 +77,7 @@ impl SharedMemory {
   }
 
   /// Unmap file and close handle.
-  pub fn dispose(self: &Self) {
+  pub(self) fn dispose(self: &Self) {
     unsafe {
       UnmapViewOfFile(self.mapped_view_address).unwrap();
 
