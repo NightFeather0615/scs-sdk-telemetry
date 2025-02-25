@@ -17,7 +17,7 @@ Read data:
 use scs_sdk_telemetry::shared_memory::SharedMemory;
 
 fn main() {
-  let mut shared_mem: SharedMemory = SharedMemory::connect();
+  let mut shared_mem: SharedMemory = SharedMemory::connect().unwrap();
 
   println!("{:#?}", shared_mem.read());
 }
@@ -36,7 +36,7 @@ features = ["json"]
 use scs_sdk_telemetry::shared_memory::SharedMemory;
 
 fn main() {
-  let mut shared_mem: SharedMemory = SharedMemory::connect();
+  let mut shared_mem: SharedMemory = SharedMemory::connect().unwrap();
 
   println!("{:#?}", shared_mem.read().to_json().unwrap().to_string());
 }
