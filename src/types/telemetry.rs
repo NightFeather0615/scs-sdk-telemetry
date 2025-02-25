@@ -54,7 +54,7 @@ impl TelemetryData {
   pub fn set_delivery_time(self: &mut Self, delivery_time: u32) {
     self.job.delivery_time = delivery_time;
     if self.common.game_time > 0 && self.common.game_time < 4000000000 && delivery_time > 0 {
-      self.job.remaining_delivery_time = (delivery_time - self.common.game_time) as i32;
+      self.job.remaining_delivery_time = delivery_time as i64 - self.common.game_time as i64;
     } else {
       self.job.remaining_delivery_time = 0;
     }

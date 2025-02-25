@@ -107,7 +107,7 @@ impl ToString for Version {
 #[cfg_attr(feature = "json", serde(rename_all(serialize = "snake_case")))]
 pub struct Job {
   pub delivery_time: u32,
-  pub remaining_delivery_time: i32,
+  pub remaining_delivery_time: i64,
   pub cargo_loaded: bool,
   pub special_job: bool,
   pub market: JobMarket,

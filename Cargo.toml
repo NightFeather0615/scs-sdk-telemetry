@@ -2,7 +2,7 @@
 name = "scs-sdk-telemetry"
 description = "Rust wrapper for the ETS2 (Euro Truck Simulator 2) and ATS (American Truck Simulator) Telemetry SDK plug-in."
 version = "1.1.0"
-edition = "2021"
+edition = "2024"
 authors = ["NightFeather"]
 license = "MPL-2.0"
 homepage = "https://github.com/NightFeather0615/scs-sdk-telemetry"
@@ -20,14 +20,17 @@ default = []
 json = ["serde", "serde_json"]
 
 [dependencies.windows]
-version = "0.51.1"
+version = "0.60.0"
 features = ["Win32_System_Memory", "Win32_Foundation"]
 
+[dependencies.thiserror]
+version = "2.0.11"
+
 [dependencies.serde]
-version = "1.0.188"
+version = "1.0.218"
 features = ["derive"]
 optional = true
 
 [dependencies.serde_json]
-version = "1.0.105"
+version = "1.0.139"
 optional = true
